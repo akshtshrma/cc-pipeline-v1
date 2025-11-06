@@ -7,7 +7,7 @@ on:
         description: "Select Deployment Environment"
         required: true
         type: choice
-        options: [ "DEV", "UAT", "PROD" ]
+        options: [ "DESIGN", "SANDBOX" ]
       java_version:
         description: "Java Version for Build"
         required: true
@@ -24,7 +24,7 @@ env:
   APP_NAME: cc-pipeline-v1
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
 
-# TEST JOB 
+# TEST JOB
 
 jobs:
   test:
@@ -50,12 +50,10 @@ jobs:
 
       - name: "Run MUnit Tests (Environment Specific)"
         run: |
-          if [ "${{ inputs.environment }}" == "DEV" ]; then
-            mvn clean test -D"mule.env"="${{ secrets.dev_mule_env }}" -D"mule.key"="${{ secrets.dev_mule_key }}"
-          elif [ "${{ inputs.environment }}" == "UAT" ]; then
-            mvn clean test -D"mule.env"="${{ secrets.uat_mule_env }}" -D"mule.key"="${{ secrets.uat_mule_key }}"
+          if [ "${{ inputs.environment }}" == "DESIGN" ]; then
+            mvn clean test -D"mule.env"="${{ secrets.design_mule_env }}" -D"mule.key"="${{ secrets.design_mule_key }}"
           else
-            mvn clean test -D"mule.env"="${{ secrets.prod_mule_env }}" -D"mule.key"="${{ secrets.prod_mule_key }}"
+            mvn clean test -D"mule.env"="${{ secrets.sandbox_mule_env }}" -D"mule.key"="${{ secrets.sandbox_mule_key }}"
           fi
 
       - name: Upload MUnit Test Report
@@ -90,12 +88,10 @@ jobs:
 
       - name: "Build with Maven (Environment Specific)"
         run: |
-          if [ "${{ inputs.environment }}" == "DEV" ]; then
-            mvn -B package --file pom.xml -D"mule.env"="${{ secrets.dev_mule_env }}" -D"mule.key"="${{ secrets.dev_mule_key }}" -DskipTests
-          elif [ "${{ inputs.environment }}" == "UAT" ]; then
-            mvn -B package --file pom.xml -D"mule.env"="${{ secrets.uat_mule_env }}" -D"mule.key"="${{ secrets.uat_mule_key }}" -DskipTests
+          if [ "${{ inputs.environment }}" == "DESIGN" ]; then
+            mvn -B package --file pom.xml -D"mule.env"="${{ secrets.design_mule_env }}" -D"mule.key"="${{ secrets.design_mule_key }}" -DskipTests
           else
-            mvn -B package --file pom.xml -D"mule.env"="${{ secrets.prod_mule_env }}" -D"mule.key"="${{ secrets.prod_mule_key }}" -DskipTests
+            mvn -B package --file pom.xml -D"mule.env"="${{ secrets.sandbox_mule_env }}" -D"mule.key"="${{ secrets.sandbox_mule_key }}" -DskipTests
           fi
 
       - name: Upload Build Artifact
@@ -179,24 +175,19 @@ jobs:
           CLIENT_ID: ${{ secrets.connected_app_id }}
           CLIENT_SECRET: ${{ secrets.connected_app_secret }}
         run: |
-          if [ "${{ inputs.environment }}" == "DEV" ]; then
+          if [ "${{ inputs.environment }}" == "DESIGN" ]; then
             mvn clean deploy -DskipTests -DmuleDeploy \
               -DclientId=$CLIENT_ID -DclientSecret=$CLIENT_SECRET \
-              -D"mule.env"="${{ secrets.dev_mule_env }}" -D"mule.key"="${{ secrets.dev_mule_key }}" \
-              -Dapplication.name="${APP_NAME}-dev"
-          elif [ "${{ inputs.environment }}" == "UAT" ]; then
-            mvn clean deploy -DskipTests -DmuleDeploy \
-              -DclientId=$CLIENT_ID -DclientSecret=$CLIENT_SECRET \
-              -D"mule.env"="${{ secrets.uat_mule_env }}" -D"mule.key"="${{ secrets.uat_mule_key }}" \
-              -Dapplication.name="${APP_NAME}-uat"
+              -D"mule.env"="${{ secrets.design_mule_env }}" -D"mule.key"="${{ secrets.design_mule_key }}" \
+              -Dapplication.name="${APP_NAME}-design"
           else
             mvn clean deploy -DskipTests -DmuleDeploy \
               -DclientId=$CLIENT_ID -DclientSecret=$CLIENT_SECRET \
-              -D"mule.env"="${{ secrets.prod_mule_env }}" -D"mule.key"="${{ secrets.prod_mule_key }}" \
-              -Dapplication.name="${APP_NAME}-prod"
+              -D"mule.env"="${{ secrets.sandbox_mule_env }}" -D"mule.key"="${{ secrets.sandbox_mule_key }}" \
+              -Dapplication.name="${APP_NAME}-sandbox"
           fi
 
-# TAG RELEASE JOB
+# TAG RELEASE
 
   tag-release:
     name: "Tag GitHub Release"
@@ -216,7 +207,7 @@ jobs:
           git tag ${{ inputs.release_tag }}
           git push origin ${{ inputs.release_tag }}
 
-# EMAIL NOTIFICATION JOB
+# EMAIL NOTIFICATION
 
   notify:
     name: "Send Deployment Status Email"
