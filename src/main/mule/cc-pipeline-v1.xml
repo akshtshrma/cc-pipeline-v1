@@ -9,6 +9,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	</http:listener-config>
 	<flow name="cc-pipeline-v1Flow" doc:id="7949914c-4943-49ce-aca1-82c819a7cdc7" >
 		<http:listener doc:name="Listener" doc:id="8392f10e-248e-4fb7-adae-32b7ae5c7dd7" config-ref="HTTP_Listener_config" path="/pipeline"/>
-		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="422261a7-2707-4316-97a7-ecefeecf3462" />
+		<set-payload value='#[output application/json&#10;---&#10;{&#10;	message : "Hello world"&#10;}]' doc:name="Set Payload" doc:id="422261a7-2707-4316-97a7-ecefeecf3462" />
 	</flow>
 </mule>
