@@ -174,9 +174,9 @@ jobs:
           CLIENT_SECRET: ${{ secrets.connected_app_secret }}
         run: |
           if [ "${{ inputs.environment }}" == "DESIGN" ]; then
-            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment="${{ secrets.design_mule_env }}" -Dmule.key="${{ secrets.design_mule_key }}" -DapplicationName="${APP_NAME}-design" -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1
+            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment="${{ secrets.design_mule_env }}" -Dmule.key="${{ secrets.design_mule_key }}" -DapplicationName="${APP_NAME}-design" -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1 -s settings.xml
           else
-            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment="${{ secrets.design_mule_env }}" -Dmule.key="${{ secrets.design_mule_key }}" -DapplicationName="${APP_NAME}-sandbox" -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1
+            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment="${{ secrets.design_mule_env }}" -Dmule.key="${{ secrets.design_mule_key }}" -DapplicationName="${APP_NAME}-sandbox" -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1 -s settings.xml
           fi
 
 # TAG RELEASE
