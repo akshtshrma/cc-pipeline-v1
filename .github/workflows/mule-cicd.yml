@@ -224,7 +224,7 @@ jobs:
           username: ${{ secrets.mail_username }}
           password: ${{ secrets.mail_password }}
           subject: "MuleSoft Deployment ${{ inputs.environment }} - ${{ job.status }}"
-          to: "devteam@example.com"
+          to: "csai22040@glbitm.ac.in"
           from: "Mule CI/CD <${{ secrets.mail_username }}>"
           body: |
             Hello Team,
