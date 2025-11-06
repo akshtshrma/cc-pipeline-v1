@@ -7,7 +7,7 @@ on:
         description: "Select Deployment Environment"
         required: true
         type: choice
-        options: [ "DESIGN", "SANDBOX" ]
+        options: [ "Design", "Sandbox" ]
       java_version:
         description: "Java Version for Build"
         required: true
@@ -173,10 +173,10 @@ jobs:
           CLIENT_ID: ${{ secrets.connected_app_id }}
           CLIENT_SECRET: ${{ secrets.connected_app_secret }}
         run: |
-          if [ ${{ inputs.environment }} == "DESIGN" ]; then
+          if [ ${{ inputs.environment }} == "Design" ]; then
             mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment=${{ secrets.design_mule_env }} -Dmule.key=${{ secrets.design_mule_key }} -DapplicationName=${APP_NAME}-design -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1 -s settings.xml
           else
-            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment=${{ secrets.design_mule_env }} -Dmule.key=${{ secrets.design_mule_key }} -DapplicationName=${APP_NAME}-sandbox -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1 -s settings.xml
+            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment=${{ secrets.design_mule_env }} -Dmule.key=${{ secrets.design_mule_key }} -DapplicationName=${APP_NAME}-sandbox -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1 -s settings.xml -X
           fi
 
 # TAG RELEASE
