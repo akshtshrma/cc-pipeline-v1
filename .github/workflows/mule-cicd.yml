@@ -184,7 +184,7 @@ jobs:
   notify:
     name: "Send Deployment Status Email"
     runs-on: ubuntu-latest
-    needs: tag-release
+    needs: deploy
     if: always()
 
     steps:
