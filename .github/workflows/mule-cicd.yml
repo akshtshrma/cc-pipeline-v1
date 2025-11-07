@@ -209,7 +209,7 @@ jobs:
             ▪ Status: ${{ job.status }}
             ▪ Triggered by: ${{ github.actor }}
 
-            🔗 View Logs:
+            View Logs:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             Regards,  
