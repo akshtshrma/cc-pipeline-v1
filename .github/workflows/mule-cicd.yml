@@ -13,6 +13,19 @@ on:
         required: true
         type: choice
         options: [ "8", "11", "17" ]
+      replicas:
+        description: "Replicas for Build"
+        required: true
+        type: string
+      vCores:
+        description: "vCores for Build"
+        required: true
+        type: string
+      target_name:
+        description: "Target for Build"
+        required: true
+        type: choice
+        options: [ "Cloudhub-US-East-2" ]
       release_tag:
         description: "Release Tag (e.g., v1.0.0)"
         required: true
@@ -174,9 +187,9 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CONNECTED_APP_SECRET }}
         run: |
           if [ ${{ inputs.environment }} == "Design" ]; then
-            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment=${{ secrets.DESIGN_MULE_ENV}} -Dmule.key=${{ secrets.DESIGN_MULE_KEY }} -DapplicationName=${APP_NAME}-design -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1 -s settings.xml
+            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment=${{ secrets.DESIGN_MULE_ENV}} -Dmule.key=${{ secrets.DESIGN_MULE_KEY }} -DapplicationName=${APP_NAME}-design -DtargetName=${{ inputs.target_name }} -Dreplicas=${{ inputs.replicas }} -DvCores=${{ inputs.vCores }} -s settings.xml
           else
-            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment=${{ secrets.SANDBOX_MULE_ENV}} -Dmule.key=${{ secrets.SANDBOX_MULE_KEY }} -DapplicationName=${APP_NAME}-sandbox -DtargetName=Cloudhub-US-East-2 -Dreplicas=1 -DvCores=0.1 -s settings.xml
+            mvn clean deploy -DskipTests -DmuleDeploy -DclientID=$CLIENT_ID -DclientSecret=$CLIENT_SECRET -Denvironment=${{ secrets.SANDBOX_MULE_ENV}} -Dmule.key=${{ secrets.SANDBOX_MULE_KEY }} -DapplicationName=${APP_NAME}-sandbox -DtargetName=${{ inputs.target_name }} -Dreplicas=${{ inputs.replicas }} -DvCores=${{ inputs.vCores }} -s settings.xml
           fi
 
 # EMAIL NOTIFICATION
