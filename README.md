@@ -3,9 +3,7 @@
 ## Overview
 
 Customer API Integration is a MuleSoft application built using API-led connectivity principles.  
-It exposes RESTful services for managing customer data and integrates with backend systems such as databases and external APIs.
-
-This application is designed for enterprise-grade deployment on CloudHub or Runtime Fabric.
+It exposes RESTful services for managing customer data and integrates with backend systems such as databases and external API.
 
 ---
 
