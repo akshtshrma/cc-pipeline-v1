@@ -182,6 +182,4 @@ Tags must be created for production releases.
 
 ---
 
-## License
 
-This project is proprietary and intended for internal enterprise use.
