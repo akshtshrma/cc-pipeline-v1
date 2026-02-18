@@ -182,11 +182,4 @@ Tags must be created for production releases.
 
 ---
 
-## Maintainers
-
-Integration Team  
-integration-team@company.com
-
----
-
 
