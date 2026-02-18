@@ -1,4 +1,4 @@
-# Customer Integration PAPI
+# Customer Integration API
 
 ## Overview
 
