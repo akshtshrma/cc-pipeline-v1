@@ -182,13 +182,6 @@ Tags must be created for production releases.
 
 ---
 
-## Maintainers
-
-Integration Team  
-integration-team@company.com
-
----
-
 ## License
 
 This project is proprietary and intended for internal enterprise use.
