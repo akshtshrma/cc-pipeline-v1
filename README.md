@@ -1,9 +1,6 @@
 # Customer Integration PAPI
 
-## Overview
 
-Customer API Integration is a MuleSoft application built using API-led connectivity principles.  
-It exposes RESTful services for managing customer data and integrates with backend systems such as databases and external API.
 
 ---
 
