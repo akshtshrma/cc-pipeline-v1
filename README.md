@@ -189,6 +189,4 @@ integration-team@company.com
 
 ---
 
-## License
 
-This project is proprietary and intended for internal enterprise use.
