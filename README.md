@@ -55,11 +55,6 @@ Environment-specific configuration files are located in:
 src/main/resources/properties/
 ```
 
-Supported environments:
-- `dev`
-- `qa`
-- `prod`
-
 Sensitive values must be externalized using secure properties.  
 Do not commit credentials to the repository.
 
